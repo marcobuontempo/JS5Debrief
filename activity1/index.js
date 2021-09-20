@@ -134,11 +134,12 @@ let errMsg = document.getElementById("errMsg");
 //Function {
   //if statement
 function verifyInput () {
-  if (myName2.value == "" || myName2.value.length < 8) {
+  if (myName2.value.length < 8) {
     errMsg.innerHTML = "Please type more than 8 characters!";
     errMsg.style.color = "red";
+    myName2.focus();
   } else {
-    errMsg.innerHTML = "I am Groot, that is goot";
+    errMsg.innerHTML = "";
   }
 }
 
@@ -149,14 +150,17 @@ btnSub2.onclick = verifyInput;
 // 7.create a list of hobbies
 // Selectors
 let btnHobbies = document.getElementById("btnHobbies");
-let hobbiesList = document.getElementById("hobbies > ul");
+let hobbiesList = document.querySelector("#hobbies > ul");
+
 
 //Function {
 function hobbiesPrompt () {
   for (i=0; i<3; i++) {
-    document.createElement("li");
-    window.prompt("CLICK HERE TO CLEAN YOUR DESKTOP");
-  }
+  let hobbyInput = prompt("Enter a hobby:");
+  let hobbyLi = document.createElement("li");
+  hobbyLi.innerHTML = hobbyInput;
+  hobbiesList.appendChild(hobbyLi);
+}
 }
 
 
@@ -169,10 +173,41 @@ btnHobbies.onclick = hobbiesPrompt;
 
 // 8. Display a profile card from an object
 //Object
+const myProfile = {
+  image: "./images/face.jpg",
+  alt: "photo of myself",
+  name: "Marco",
+  role: "Student",
+  myHobbies: "Coding, Sport"
+}
+
 
 // Selectors
+let btnProfile = document.getElementById("btnProfile");
+let displayCard = document.getElementById("displayCard");
+
+btnProfile.onclick = profileClick;
 
 /*Function {
     //for loop
       //if statement
   }*/
+
+function profileClick() {
+  let htmlInfo = `<div class="card" style="width:18rem">
+  <img src="${myProfile.image}" class="card-img-top" alt="${myProfile.alt}">
+  <div class="card-body">
+      <h5>${myProfile.name}</h5>
+      <p>${myProfile.role}</p>
+      <p>${myProfile.myHobbies}</p>
+    </div>
+  </div>`
+
+  if (displayCard.style.display === "inline-block") {
+    displayCard.innerHTML = htmlInfo; 
+    displayCard.style.display = "none"
+  } else {
+    displayCard.innerHTML = htmlInfo;
+    displayCard.style.display = "inline-block"
+  }
+};
